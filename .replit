@@ -1,0 +1,9 @@
+run = "python -m forward_deployed_ai_lab"
+entrypoint = "main.py"
+
+[env]
+FDAI_PORT = "3000"
+FDAI_MODEL_PROVIDER = "deterministic"
+
+[nix]
+channel = "stable-24_05"

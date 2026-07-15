@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# Secrets and local state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Runtime artifacts
+logs/*.jsonl
+artifacts/*.json
+!artifacts/evaluation-report.json
+!artifacts/red-team-report.json
+mlruns/
+.chroma/
+
+# Notebooks / OS / IDE
+.ipynb_checkpoints/
+.DS_Store
+.idea/
+.vscode/

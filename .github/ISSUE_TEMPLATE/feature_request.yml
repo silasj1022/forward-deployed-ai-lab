@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose a public, synthetic-data capability or architecture extension.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Customer or mission problem
+      description: Describe the operational need rather than only naming a framework.
+    validations:
+      required: true
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed approach
+      description: Include security, evaluation, integration, and deployment implications.
+    validations:
+      required: true
+  - type: dropdown
+    id: status
+    attributes:
+      label: Intended capability status
+      options:
+        - Implemented in core runtime
+        - Implemented optional adapter
+        - Architecture extension only
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Validation plan
+      description: What tests, golden cases, or operational evidence should prove completion?
+    validations:
+      required: true

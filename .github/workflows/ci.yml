@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: python -m pip install --upgrade pip && pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Type-check
+        run: mypy src/forward_deployed_ai_lab
+      - name: Test
+        run: pytest --cov=forward_deployed_ai_lab --cov-report=xml --cov-report=term
+      - name: Synthetic benchmark
+        run: python scripts/evaluate.py
+      - name: Red-team gate
+        run: python scripts/red_team.py
+      - name: Upload evaluation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-${{ matrix.python-version }}
+          path: |
+            artifacts/evaluation-report.json
+            artifacts/red-team-report.json
+            coverage.xml
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build container
+        run: docker build -t forward-deployed-ai-lab:${{ github.sha }} .
