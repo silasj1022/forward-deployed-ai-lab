@@ -35,7 +35,7 @@ jobs:
         run: python scripts/red_team.py
       - name: Upload evaluation artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: evaluation-${{ matrix.python-version }}
           path: |
