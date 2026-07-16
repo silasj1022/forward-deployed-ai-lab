@@ -30,3 +30,8 @@ mlruns/
 .DS_Store
 .idea/
 .vscode/
+
+# Build and packaging
+build/
+dist/
+coverage.xml

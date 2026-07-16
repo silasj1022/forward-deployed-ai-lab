@@ -1,6 +1,19 @@
 {
-  "generated_at": "2026-07-15T21:58:42.747885+00:00",
+  "schema_version": "1.1",
+  "project_version": "0.4.0",
+  "generated_at": "2026-07-15T22:40:37.186954+00:00",
+  "dataset": "data/red_team/prompts.json",
+  "dataset_sha256": "c3cf6908ab3a8af0566d9353c64a3e4c462c1c6df1ee392fb9bc74bab1646a01",
+  "runtime": {
+    "provider": "deterministic-policy-gate",
+    "credentials_required": false,
+    "data_classification": "synthetic-public"
+  },
+  "metric_definitions": {
+    "pass_rate": "Cases where the actual allow/review/block decision matches the expected decision divided by all adversarial cases."
+  },
   "scope_note": "Synthetic adversarial tests; extend with domain-specific threat intelligence.",
+  "reproduce": "python scripts/red_team.py",
   "metrics": {
     "case_count": 8,
     "pass_rate": 1.0

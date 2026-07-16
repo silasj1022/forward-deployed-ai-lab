@@ -1,11 +1,11 @@
-.PHONY: install test lint format typecheck evaluate red-team run docker-build docker-run clean
+.PHONY: install verify-repo lint format typecheck test evaluate red-team validate run demo docker-build docker-run build clean
 
 install:
 	python -m pip install --upgrade pip
 	python -m pip install -e ".[dev]"
 
-test:
-	pytest --cov=forward_deployed_ai_lab --cov-report=term-missing
+verify-repo:
+	python scripts/verify_repository.py
 
 lint:
 	ruff check .
@@ -14,7 +14,10 @@ format:
 	ruff format .
 
 typecheck:
-	mypy src
+	mypy src/forward_deployed_ai_lab
+
+test:
+	pytest --cov=forward_deployed_ai_lab --cov-report=term-missing
 
 evaluate:
 	python scripts/evaluate.py
@@ -22,8 +25,12 @@ evaluate:
 red-team:
 	python scripts/red_team.py
 
+validate: verify-repo lint typecheck test evaluate red-team
+
 run:
 	python -m forward_deployed_ai_lab
+
+demo: run
 
 docker-build:
 	docker build -t forward-deployed-ai-lab:local .
@@ -31,5 +38,8 @@ docker-build:
 docker-run:
 	docker run --rm -p 3000:3000 forward-deployed-ai-lab:local
 
+build:
+	python -m build
+
 clean:
-	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov artifacts/*.json logs/*.jsonl
+	rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage coverage.xml htmlcov build dist *.egg-info logs/*.jsonl

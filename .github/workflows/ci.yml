@@ -8,21 +8,31 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
           cache-dependency-path: pyproject.toml
       - name: Install
         run: python -m pip install --upgrade pip && pip install -e ".[dev]"
+      - name: Verify repository evidence
+        run: python scripts/verify_repository.py
       - name: Lint
         run: ruff check .
       - name: Type-check
@@ -35,17 +45,21 @@ jobs:
         run: python scripts/red_team.py
       - name: Upload evaluation artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: evaluation-${{ matrix.python-version }}
+          name: evaluation-python-${{ matrix.python-version }}
+          if-no-files-found: error
           path: |
             artifacts/evaluation-report.json
             artifacts/red-team-report.json
             coverage.xml
 
   container:
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Build container
         run: docker build -t forward-deployed-ai-lab:${{ github.sha }} .

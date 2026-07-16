@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fdai-lab-config
+data:
+  FDAI_ENVIRONMENT: "production"
+  FDAI_MODEL_PROVIDER: "deterministic"
+  FDAI_PORT: "3000"
+  FDAI_ALLOW_SALESFORCE_WRITES: "false"
+  FDAI_LIVE_INTEGRATIONS_ENABLED: "false"
