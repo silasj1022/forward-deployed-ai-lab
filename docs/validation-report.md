@@ -14,9 +14,9 @@
 |---|---|
 | Repository integrity / evidence consistency | Passed: 25 required paths, package and citation branding, encoding scan, dataset hashes, version metadata, and expected reports verified |
 | Ruff lint | Passed |
-| mypy strict type check | Passed across 42 source files |
-| pytest | 28 passed; one upstream TestClient deprecation warning |
-| Measured branch coverage | 88.32%; required minimum is 80% |
+| mypy strict type check | Passed across 43 source files |
+| pytest | 30 passed; one upstream TestClient deprecation warning |
+| Measured branch coverage | 88.43%; required minimum is 80% |
 | Golden-set release gate | 10/10 cases passed |
 | Adversarial/red-team gate | 8/8 cases passed |
 | Python wheel | Built; clean-installed outside the checkout; data, web, API, evaluation, and red-team smoke test passed |

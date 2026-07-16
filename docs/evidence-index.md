@@ -21,7 +21,7 @@ Status definitions:
 | Salesforce Agentforce SDK integration | Planned | `docs/agentforce-integration-plan.md` | requires Developer Edition or Trailhead Playground |
 | Golden-set release gate | Verified | `evaluation/benchmark.py`, `data/eval/golden_set.json` | `artifacts/evaluation-report.json` |
 | Adversarial release gate | Verified | `evaluation/red_team.py`, `data/red_team/prompts.json` | `artifacts/red-team-report.json` |
-| 28 automated tests / 88.32% measured coverage | Verified locally | `tests/`, coverage configuration | `pytest --cov=forward_deployed_ai_lab`; public RC check pending |
+| 30 automated tests / 88.43% measured coverage | Verified locally | `tests/`, coverage configuration | `pytest --cov=forward_deployed_ai_lab`; public RC check pending |
 | Hash-chained audit events | Verified | `observability/audit.py` | `tests/test_audit.py` |
 | Structured stage tracing | Verified | `observability/tracing.py` | orchestrator and audit tests |
 | FastAPI / OpenAPI interface | Verified | `app.py`, `api/` | `tests/test_api.py` |
@@ -47,8 +47,8 @@ Status definitions:
 
 At the research baseline:
 
-- 28 automated tests pass locally on Python 3.12.
-- Measured coverage is 88.32% under documented exclusions; the public Python 3.11-3.13 RC matrix is pending.
+- 30 automated tests pass locally on Python 3.12.
+- Measured coverage is 88.43% under documented exclusions; the public Python 3.11-3.13 RC matrix is pending.
 - 10/10 synthetic golden-set cases pass the deterministic release gate.
 - 8/8 synthetic adversarial cases pass.
 - Mean groundedness is 0.9913 on the included synthetic dataset.

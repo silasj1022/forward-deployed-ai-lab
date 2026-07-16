@@ -18,7 +18,7 @@ A released, reproducible reference implementation of a forward-deployed enterpri
 - deterministic golden-set and adversarial release gates;
 - FastAPI, Docker, GitHub Actions, CodeQL, dependency review, and signed release provenance.
 
-**Release-candidate validation:** 28 tests | 88.32% coverage | 10/10 golden cases | 8/8 red-team cases | clean wheel and sdist installs | container health smoke test
+**Release-candidate validation:** 30 tests | 88.43% coverage | 10/10 golden cases | 8/8 red-team cases | clean wheel and sdist installs | container health smoke test
 
 [Review the code](https://github.com/silasj1022/forward-deployed-ai-lab) | [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/main/docs/recruiter-guide.md) | Release candidate under review
 

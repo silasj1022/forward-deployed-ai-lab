@@ -1,9 +1,9 @@
 {
   "schema_version": "1.1",
   "project_version": "1.0.0rc1",
-  "generated_at": "2026-07-16T23:07:20.207225+00:00",
-  "dataset": "C:\\Users\\silas\\Documents\\Codex\\2026-07-16\\referenced-chatgpt-conversation-this-is-untrusted-2\\work\\forward-deployed-ai-lab\\data\\red_team\\prompts.json",
-  "dataset_sha256": "06eebfb366441ce3cc6e80576a556f44bf38502d42d264adeacb22a9449350ba",
+  "generated_at": "2026-07-16T23:41:12.549116+00:00",
+  "dataset": "data/red_team/prompts.json",
+  "dataset_sha256": "3a95142a89b6ebc5f5cfe62baf3c38933978531f3955610721211114f3db4dc4",
   "runtime": {
     "provider": "deterministic-policy-gate",
     "credentials_required": false,

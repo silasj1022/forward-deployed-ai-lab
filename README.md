@@ -98,8 +98,8 @@ The current synthetic evidence includes:
 
 - **10/10** golden-set scenarios passing
 - **8/8** adversarial scenarios passing
-- **28** automated tests passing
-- **88.32%** measured branch coverage with an enforced 80% minimum
+- **30** automated tests passing
+- **88.43%** measured branch coverage with an enforced 80% minimum
 - Coverage of at least **80%** enforced under documented exclusions
 
 These results validate routing, controls, retrieval, approvals, and evaluation behavior on included synthetic datasets. They are not production-scale claims.

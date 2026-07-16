@@ -3,12 +3,13 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 import re
 import tomllib
 from pathlib import Path
 from typing import Any
+
+from forward_deployed_ai_lab.evaluation.evidence import canonical_json_sha256
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_PATHS = [
@@ -44,8 +45,9 @@ def read_json(relative_path: str) -> dict[str, Any]:
     return json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
 
 
-def file_sha256(relative_path: str) -> str:
-    return hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()
+def dataset_sha256(relative_path: str) -> str:
+    value = json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+    return canonical_json_sha256(value)
 
 
 def project_version() -> str:
@@ -96,11 +98,11 @@ def main() -> int:
     expected = {
         "project_version": version,
         "golden_schema": "1.1",
-        "golden_dataset_sha256": file_sha256("data/eval/golden_set.json"),
+        "golden_dataset_sha256": dataset_sha256("data/eval/golden_set.json"),
         "golden_case_count": 10,
         "golden_gate": 1.0,
         "red_schema": "1.1",
-        "red_dataset_sha256": file_sha256("data/red_team/prompts.json"),
+        "red_dataset_sha256": dataset_sha256("data/red_team/prompts.json"),
         "red_team_case_count": 8,
         "red_team_gate": 1.0,
         "source_coverage_metric_present": True,
