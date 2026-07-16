@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.0 - 2026-07-16
+
+- Rebranded the flagship project as **Enterprise Agent Foundry** while retaining the current repository slug during transition.
+- Added a research-backed portfolio strategy for Salesforce forward-deployed AI and federal AI architecture roles.
+- Reprioritized framework work around Salesforce Agentforce, LangGraph, OpenAI Agents SDK, Microsoft Agent Framework, and Google ADK.
+- Moved CrewAI, AutoGen, and Semantic Kernel into bounded comparison or migration lanes.
+- Added a phased path from public foundation to recruiter-ready `v1.0.0`.
+- Added repository integrity, protected-branch, provenance, SBOM, evaluation, observability, and governance milestones.
+- Clarified that synthetic metrics validate workflow behavior rather than production scale or platform tenure.
+
 ## 0.3.0 - 2026-07-15
 
 - Added a framework-neutral, typed enterprise agent workflow.
