@@ -2,17 +2,17 @@
 
 The project belongs in the dedicated public repository `silasj1022/forward-deployed-ai-lab`. Do not embed it in an unrelated repository or preserve unrelated project history.
 
-## Clean publication path
+## Release-candidate publication path
 
-From a clean extraction of the release package:
+Create a reviewed branch from current `main`; never replace published history:
 
 ```bash
-git init
-git branch -M main
+git switch main
+git pull --ff-only origin main
+git switch -c agent/v1.0-release-candidate
 git add .
-git commit -m "Publish forward-deployed AI lab v0.4.0 research baseline"
-git remote add origin git@github.com:silasj1022/forward-deployed-ai-lab.git
-git push -u origin main
+git commit -m "Prepare Enterprise Agent Foundry v1.0 release candidate"
+git push -u origin agent/v1.0-release-candidate
 ```
 
 When the remote repository already has an initialization commit, reconcile deliberately rather than force-pushing without review. Confirm the intended history and inspect the remote tree before replacing any branch reference.
@@ -25,8 +25,10 @@ When the remote repository already has an initialization commit, reconcile delib
 4. Confirm GitHub Actions is green across the Python matrix.
 5. Inspect the uploaded evaluation, red-team, and coverage artifacts.
 6. Confirm the container-build job passes.
-7. Create the `v0.4.0` release and verify the distribution provenance attestation.
+7. Confirm clean wheel and source-distribution installs, SBOM generation, checksums, and container health.
 8. Apply the settings in `docs/repository-settings-checklist.md`.
+
+Open a draft pull request. Do not merge or tag `v1.0.0` until all pull-request checks are green. After merge, create the tag and verify the release assets and provenance attestation produced by the release workflow.
 
 ## GitHub portfolio path
 

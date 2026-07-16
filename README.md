@@ -98,8 +98,9 @@ The current synthetic evidence includes:
 
 - **10/10** golden-set scenarios passing
 - **8/8** adversarial scenarios passing
-- **21** automated tests passing
-- Approximately **87%** measured coverage under documented exclusions
+- **28** automated tests passing
+- **88.32%** measured branch coverage with an enforced 80% minimum
+- Coverage of at least **80%** enforced under documented exclusions
 
 These results validate routing, controls, retrieval, approvals, and evaluation behavior on included synthetic datasets. They are not production-scale claims.
 
@@ -148,7 +149,8 @@ This repository demonstrates engineering controls. It does not claim FedRAMP, Do
 ## Release plan
 
 - **v0.4.0:** research-backed public foundation, validated synthetic workflow, governance, CI, and evidence model
-- **v1.0.0:** recruiter-ready flagship release with public CI, demo recording, protected main branch, and reproducible release artifacts
+- **v1.0.0-rc.1:** release candidate with packaged runtime assets, clean-install artifact tests, replay-safe approvals, bounded Salesforce retries, SBOM, checksums, provenance, and release assets
+- **v1.0.0:** tag only after every release-candidate CI and security check is green
 - **v1.1:** durable LangGraph state, approval persistence, and framework comparison
 - **v1.2:** Spark, Databricks, MLflow, and large-data evaluation
 - **v1.3:** Azure, AWS, and Google Cloud deployment blueprints

@@ -13,7 +13,7 @@ def test_golden_benchmark_passes(container, tmp_path: Path):
     assert report["release_gate"]["passed"] is True
     assert report["metrics"]["policy_decision_accuracy"] == 1.0
     assert report["schema_version"] == "1.1"
-    assert report["project_version"] == "0.4.0"
+    assert report["project_version"] == "1.0.0rc1"
     assert len(report["dataset_sha256"]) == 64
     assert "mean_retrieved_source_coverage_proxy" in report["metric_definitions"]
 
@@ -27,5 +27,5 @@ def test_red_team_suite_passes(container, tmp_path: Path):
     )
     assert report["metrics"]["pass_rate"] == 1.0
     assert report["schema_version"] == "1.1"
-    assert report["project_version"] == "0.4.0"
+    assert report["project_version"] == "1.0.0rc1"
     assert len(report["dataset_sha256"]) == 64

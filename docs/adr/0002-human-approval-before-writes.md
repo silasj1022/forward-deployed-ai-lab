@@ -9,10 +9,11 @@ Closing a case, changing priority, escalating an incident, or proposing a refund
 
 ## Decision
 
-Split every consequential action into proposal, approval, and execution stages. The proposal records the target, fields, rationale, trace ID, and action type. Execution requires an explicit approval decision. Live Salesforce writes additionally require two disabled-by-default configuration flags.
+Split every consequential action into proposal, approval, and execution stages. The proposal records the target, fields, rationale, trace ID, and action type. The approval stores a canonical SHA256 hash of that exact proposal. Execution requires an explicit matching approval decision, claims a deterministic idempotency key, and stores the outcome so a successful request cannot issue the write twice. Live Salesforce writes additionally require two disabled-by-default configuration flags.
 
 ## Consequences
 
 - The public demo can show a complete workflow without autonomous writes.
 - Approval decisions are attributable and auditable.
-- Production deployments must replace the in-memory store with durable identity-backed approval records and action-hash binding.
+- The reference implementation prevents same-process replay and action substitution.
+- Production deployments must replace the in-memory store with durable identity-backed approval records, transactional execution claims, and a downstream idempotency contract.

@@ -77,11 +77,35 @@ def decide_approval(
     if payload.approved and payload.execute_synthetic_action:
         action = ProposedAction.model_validate(record["action"])
         try:
-            execution = container.salesforce.execute_case_update(action, approved=True)
-        except (KeyError, PermissionError):
+            should_execute, prior_result, idempotency_key = container.approvals.claim_execution(
+                approval_id, action
+            )
+            if should_execute:
+                execution = container.salesforce.execute_case_update(action, approved=True)
+                execution["idempotency_key"] = idempotency_key
+                container.approvals.complete_execution(approval_id, execution)
+            else:
+                execution = prior_result
+                if execution is not None:
+                    execution["replayed"] = True
+        except ValueError:
+            execution = {
+                "success": False,
+                "error": "The approved action is already being executed.",
+                "retryable": True,
+            }
+        except (KeyError, PermissionError) as exc:
+            container.approvals.fail_execution(approval_id, type(exc).__name__)
             execution = {
                 "success": False,
                 "error": "The approved synthetic action could not be executed.",
+            }
+        except Exception as exc:
+            container.approvals.fail_execution(approval_id, type(exc).__name__)
+            execution = {
+                "success": False,
+                "error": "The approved action encountered a transient integration failure.",
+                "retryable": True,
             }
     container.audit_logger.append(
         "approval.decided",
@@ -95,7 +119,7 @@ def benchmark(request: Request) -> dict[str, Any]:
     container = _container(request)
     return run_benchmark(
         container.orchestrator,
-        golden_set_path=Path(container.settings.data_dir) / "eval/golden_set.json",
+        golden_set_path=container.settings.resolved_data_dir / "eval/golden_set.json",
         output_path=Path(container.settings.artifact_dir) / "evaluation-report.json",
         enable_mlflow=container.settings.enable_mlflow,
     )
@@ -106,7 +130,7 @@ def red_team(request: Request) -> dict[str, Any]:
     container = _container(request)
     return run_red_team(
         container.orchestrator,
-        prompts_path=Path(container.settings.data_dir) / "red_team/prompts.json",
+        prompts_path=container.settings.resolved_data_dir / "red_team/prompts.json",
         output_path=Path(container.settings.artifact_dir) / "red-team-report.json",
     )
 

@@ -1,11 +1,11 @@
 [build-system]
-requires = ["setuptools>=75", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling>=1.27,<2.0"]
+build-backend = "hatchling.build"
 
 [project]
-name = "forward-deployed-ai-lab"
-version = "0.4.0"
-description = "Auditable enterprise agent workflow with RAG, human approval, Salesforce integration, evaluation, and MLOps extension points."
+name = "enterprise-agent-foundry"
+version = "1.0.0rc1"
+description = "Auditable enterprise agent workflow with RAG, approval-controlled Salesforce integration, evaluation, and governed extension points."
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 license = "MIT"
@@ -21,7 +21,7 @@ keywords = [
   "mlops",
 ]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Framework :: FastAPI",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
@@ -102,16 +102,37 @@ dev = [
   "mypy>=1.15",
   "pip-audit>=2.8",
   "build>=1.2",
+  "cyclonedx-bom>=7.0,<8.0",
 ]
 
 [project.scripts]
-fdai-lab = "forward_deployed_ai_lab.__main__:main"
+enterprise-agent-foundry = "forward_deployed_ai_lab.__main__:main"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.hatch.build.targets.wheel]
+packages = ["src/forward_deployed_ai_lab"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"data" = "forward_deployed_ai_lab/data"
+"web" = "forward_deployed_ai_lab/web"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/data",
+  "/web",
+  "/tests",
+  "/scripts",
+  "/docs",
+  "/infra",
+  "/.github",
+  "/README.md",
+  "/LICENSE",
+  "/CITATION.cff",
+  "/pyproject.toml",
+]
 
 [tool.pytest.ini_options]
-addopts = "-q --strict-markers --disable-warnings"
+addopts = "-q --strict-markers --disable-warnings --basetemp=.pytest-tmp"
 testpaths = ["tests"]
 pythonpath = ["src"]
 

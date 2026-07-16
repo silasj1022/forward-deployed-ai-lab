@@ -1,6 +1,8 @@
 services:
-  api:
+  enterprise-agent-foundry:
     build: .
+    image: enterprise-agent-foundry:local
+    container_name: enterprise-agent-foundry
     ports:
       - "3000:3000"
     env_file:

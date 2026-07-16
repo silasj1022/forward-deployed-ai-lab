@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import tomllib
 from pathlib import Path
 from typing import Any
@@ -25,6 +26,7 @@ REQUIRED_PATHS = [
     "src/forward_deployed_ai_lab/tools/salesforce.py",
     "src/forward_deployed_ai_lab/evaluation/benchmark.py",
     "tests/test_orchestrator.py",
+    "scripts/installed_package_smoke.py",
     "data/eval/golden_set.json",
     "data/red_team/prompts.json",
     "artifacts/evaluation-report.json",
@@ -64,6 +66,32 @@ def main() -> int:
     eval_metrics = evaluation.get("metrics", {})
     red_metrics = red_team.get("metrics", {})
     version = project_version()
+
+    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    if pyproject["project"]["name"] != "enterprise-agent-foundry":
+        print("Package metadata does not use the Enterprise Agent Foundry name.")
+        return 1
+    init_source = (ROOT / "src/forward_deployed_ai_lab/__init__.py").read_text(
+        encoding="utf-8"
+    )
+    version_match = re.search(r'^__version__ = "([^"]+)"$', init_source, re.MULTILINE)
+    if version_match is None or version_match.group(1) != version:
+        print("Package runtime version does not match pyproject.toml.")
+        return 1
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    if 'title: "Enterprise Agent Foundry"' not in citation:
+        print("Citation metadata does not use the Enterprise Agent Foundry name.")
+        return 1
+    mojibake_markers = ("Â", "Ã", "â€", "â†")
+    text_paths = [ROOT / "README.md", *sorted((ROOT / "docs").glob("*.md"))]
+    corrupted = [
+        str(path.relative_to(ROOT))
+        for path in text_paths
+        if any(marker in path.read_text(encoding="utf-8") for marker in mojibake_markers)
+    ]
+    if corrupted:
+        print(f"Encoding artifact check failed: {corrupted}")
+        return 1
 
     expected = {
         "project_version": version,

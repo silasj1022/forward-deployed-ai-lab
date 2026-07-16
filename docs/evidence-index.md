@@ -21,12 +21,12 @@ Status definitions:
 | Salesforce Agentforce SDK integration | Planned | `docs/agentforce-integration-plan.md` | requires Developer Edition or Trailhead Playground |
 | Golden-set release gate | Verified | `evaluation/benchmark.py`, `data/eval/golden_set.json` | `artifacts/evaluation-report.json` |
 | Adversarial release gate | Verified | `evaluation/red_team.py`, `data/red_team/prompts.json` | `artifacts/red-team-report.json` |
-| 21 automated tests / 87.03% measured coverage | Verified locally | `tests/`, coverage configuration | `pytest --cov=forward_deployed_ai_lab` |
+| 28 automated tests / 88.32% measured coverage | Verified locally | `tests/`, coverage configuration | `pytest --cov=forward_deployed_ai_lab`; public RC check pending |
 | Hash-chained audit events | Verified | `observability/audit.py` | `tests/test_audit.py` |
 | Structured stage tracing | Verified | `observability/tracing.py` | orchestrator and audit tests |
 | FastAPI / OpenAPI interface | Verified | `app.py`, `api/` | `tests/test_api.py` |
 | Browser demonstration | Implemented | `web/` | `make run` |
-| Repository integrity and evidence hashes | Verified locally | `scripts/verify_repository.py` | `make verify-repo` |
+| Repository integrity and evidence hashes | Verified | `scripts/verify_repository.py` | `make verify-repo`, public CI |
 | Dev Container / Codespaces setup | Implemented config | `.devcontainer/devcontainer.json` | public Codespaces proof pending |
 | LangGraph pause/resume adapter | Implemented optional | `agents/langgraph_adapter.py`, `agents/langgraph_app.py` | optional dependency; persistent-store proof is planned |
 | OpenAI Agents SDK adapter | Planned | `docs/framework-strategy.md` | shared-scenario adapter required |
@@ -36,10 +36,10 @@ Status definitions:
 | MLflow evaluation tracking | Implemented optional | `evaluation/mlflow_adapter.py` | optional service/package |
 | OpenTelemetry GenAI traces | Planned | observability dependency group | semantic-convention trace proof required |
 | PySpark/Databricks ingestion example | Implemented optional | `pipelines/spark_ingestion.py` | optional runtime; scale benchmark planned |
-| Docker image | Implemented config | `Dockerfile`, `docker-compose.yml` | CI container build must be green publicly |
-| Python distribution build | Verified locally | `pyproject.toml`, `dist/` generation | `make build` |
-| Release provenance | Implemented config | `.github/workflows/release.yml` | tagged public attestation pending |
-| Dependency review | Implemented config | `.github/workflows/dependency-review.yml` | public pull-request run pending |
+| Docker image | Verified build | `Dockerfile`, `docker-compose.yml` | public CI build; RC adds a live health smoke test |
+| Wheel and source distribution | Release-candidate verified locally | `pyproject.toml`, `scripts/installed_package_smoke.py` | clean-install smoke tests for both artifact types; public RC check pending |
+| Release provenance, SBOM, checksums, assets | Release-candidate config | `.github/workflows/release.yml` | tag intentionally pending until all RC checks are green |
+| Dependency review | Verified | `.github/workflows/dependency-review.yml` | public pull-request workflow |
 | Kubernetes deployment | Implemented manifest | `infra/kubernetes/` | cluster deployment is not yet claimed |
 | NIST/OWASP governance artifacts | Implemented documentation | threat model and system card | crosswalk expansion planned |
 
@@ -47,8 +47,8 @@ Status definitions:
 
 At the research baseline:
 
-- 21 automated tests pass.
-- Measured coverage is 87.03% under documented exclusions.
+- 28 automated tests pass locally on Python 3.12.
+- Measured coverage is 88.32% under documented exclusions; the public Python 3.11-3.13 RC matrix is pending.
 - 10/10 synthetic golden-set cases pass the deterministic release gate.
 - 8/8 synthetic adversarial cases pass.
 - Mean groundedness is 0.9913 on the included synthetic dataset.

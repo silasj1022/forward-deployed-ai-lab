@@ -9,8 +9,8 @@ This matrix connects target-role capabilities to repository evidence and identif
 | Translate an ambiguous customer problem | Salesforce customer-operations case study, typed request/action contracts, ADRs | Strong public architecture evidence | Add discovery brief and customer acceptance-test template |
 | Build agentic AI solutions | Framework-neutral workflow and LangGraph adapter | Strong workflow evidence | Add credentialed LLM and OpenAI/Microsoft adapters |
 | Integrate enterprise data and systems | Salesforce REST/SOQL adapter and synthetic system of record | Strong integration pattern | Validate against Developer Edition / Trailhead Playground |
-| Deliver end to end | API, UI, tests, evaluation, Docker, Kubernetes, CI configuration | Strong local delivery evidence | Establish complete public tree, green CI, release, live demo |
-| Human-in-the-loop and governance | Approval store, policy engine, system card, audit chain, red team | Strong | Add durable identity-bound approval persistence |
+| Deliver end to end | API, UI, tests, evaluation, Docker, Kubernetes, CI configuration | Strong public delivery evidence | Complete the v1.0 release and add a short demo |
+| Human-in-the-loop and governance | Action-bound, replay-safe in-memory approvals; policy engine; system card; audit chain; red team | Strong reference pattern | Add durable identity-bound approval persistence |
 | Evaluate AI behavior | Golden set, red-team set, research-backed evaluation roadmap | Strong deterministic baseline | Add claim-level citations, trajectory/tool metrics, MLflow and OTel proof |
 | Salesforce platform depth | REST connector and Agentforce integration plan | Emerging | Build Agentforce SDK definition, prompt templates, MCP, validation deployment |
 | Lead/Principal communication | Recruiter guide, ADRs, system card, case studies, architecture tradeoffs | Strong documentation evidence | Add short architecture briefing video and customer workshop artifact |
@@ -26,7 +26,7 @@ This matrix connects target-role capabilities to repository evidence and identif
 | MLOps/AIOps | CI/CD, container/Kubernetes, MLflow adapter, tracing | Moderate | Add public MLflow evidence, OTel traces, deployment monitoring, rollback |
 | Spark and Databricks | Optional PySpark/Delta ingestion example | Emerging | Run a reproducible synthetic scale benchmark in Databricks |
 | Azure, AWS, GCP | Provider dependency groups and deployment blueprints | Architecture only | Deploy one primary cloud path and document two portable alternatives |
-| Docker and Kubernetes | Dockerfile, Compose, Kubernetes manifests | Implemented configuration | Validate in public CI and a live cluster or managed container platform |
+| Docker and Kubernetes | Dockerfile, Compose, Kubernetes manifests | Container build verified in public CI | Validate in a live cluster or managed container platform |
 | Governance and responsible AI | System card, threat model, NIST/OWASP research basis, audit chain | Strong documentation | Add formal crosswalk, pre-deployment report, incident process, provenance |
 | Federal/regulated environment judgment | Synthetic-data discipline, authority boundaries, sensitive-environment case study | Strong architecture narrative | Professional experience and clearance remain resume/interview evidence |
 
@@ -34,7 +34,7 @@ This matrix connects target-role capabilities to repository evidence and identif
 
 The highest-value next step is not adding more package names. It is closing the visible proof gaps in this order:
 
-1. complete public repository and green CI;
+1. complete the v1.0 release-candidate checks and release packaging;
 2. Salesforce Agentforce Developer Edition vertical;
 3. durable LangGraph approval path;
 4. evaluation/observability expansion;

@@ -65,10 +65,10 @@ Add:
 
 - Dev Container and Codespaces support.
 - `make install verify-repo lint typecheck test evaluate red-team`.
-- a tagged `v0.4.0` research release after CI is green;
+- a tagged `v1.0.0` release only after the release-candidate CI and security checks are green;
 - generated release notes;
 - release artifacts containing evaluation reports;
-- SBOM export and artifact provenance when packaging images or distributions.
+- resolved CycloneDX SBOM, SHA256 checksums, clean-install tests, and artifact provenance for distributions.
 
 ## Research visibility
 

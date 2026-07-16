@@ -2,7 +2,7 @@
 
 ## System name
 
-Forward-Deployed AI Delivery Lab
+Enterprise Agent Foundry
 
 ## Purpose
 
@@ -62,7 +62,7 @@ The release baseline includes deterministic workflow tests, a versioned golden s
 - no verified public Salesforce org deployment yet;
 - optional cloud, vector, MLflow, Spark, and framework adapters require separate validation;
 - current citation coverage is a retrieved-document proxy, not claim-level citation recall;
-- public CI evidence must be established before the repository is represented as release-verified.
+- release-candidate packaging and security checks must pass publicly before v1.0 is tagged.
 
 ## Incident handling
 

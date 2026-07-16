@@ -54,11 +54,22 @@ def test_approval_endpoint_executes_only_after_decision(settings):
     assert body["execution"]["success"] is True
     assert body["execution"]["updated_fields"]["Status"] == "Closed"
 
-    duplicate = client.post(
+    replay = client.post(
+        f"/api/v1/approvals/{approval_id}/decision",
+        json={"approved": True, "decided_by": "Unit Test Reviewer"},
+    )
+    assert replay.status_code == 200
+    assert replay.json()["approval"]["decision_replayed"] is True
+    assert replay.json()["execution"]["replayed"] is True
+    current = client.get(f"/api/v1/approvals/{approval_id}").json()
+    assert current["execution_attempts"] == 1
+    assert current["execution_status"] == "succeeded"
+
+    conflicting = client.post(
         f"/api/v1/approvals/{approval_id}/decision",
         json={"approved": True, "decided_by": "Another Reviewer"},
     )
-    assert duplicate.status_code == 409
+    assert conflicting.status_code == 409
 
 
 def test_rejected_approval_never_executes(settings):

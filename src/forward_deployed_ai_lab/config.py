@@ -25,13 +25,13 @@ class Settings(BaseSettings):
         case_sensitive=False,
     )
 
-    app_name: str = "Forward-Deployed AI Delivery Lab"
+    app_name: str = "Enterprise Agent Foundry"
     environment: Literal["local", "test", "staging", "production"] = "local"
     host: str = "0.0.0.0"
     port: int = Field(default=3000, ge=1, le=65535)
     log_level: str = "INFO"
 
-    data_dir: Path = Path("data")
+    data_dir: Path | None = None
     artifact_dir: Path = Path("artifacts")
     audit_log_path: Path = Path("logs/audit.jsonl")
 
@@ -46,7 +46,7 @@ class Settings(BaseSettings):
     enable_mlflow: bool = False
     enable_opentelemetry: bool = False
     mlflow_tracking_uri: str = "file:./mlruns"
-    mlflow_experiment: str = "forward-deployed-ai-lab"
+    mlflow_experiment: str = "enterprise-agent-foundry"
 
     openai_api_key: str | None = None
     anthropic_api_key: str | None = None
@@ -60,6 +60,27 @@ class Settings(BaseSettings):
     salesforce_api_version: str = "v61.0"
     allow_salesforce_writes: bool = False
     live_integrations_enabled: bool = False
+    salesforce_timeout_seconds: float = Field(default=20.0, gt=0.0, le=120.0)
+    salesforce_max_retries: int = Field(default=2, ge=0, le=5)
+    salesforce_retry_backoff_seconds: float = Field(default=0.25, ge=0.0, le=10.0)
+
+    @property
+    def resolved_data_dir(self) -> Path:
+        """Return an explicit data directory or the packaged runtime data."""
+        if self.data_dir is not None:
+            return self.data_dir
+        packaged = Path(__file__).resolve().parent / "data"
+        if packaged.is_dir():
+            return packaged
+        return Path(__file__).resolve().parents[2] / "data"
+
+    @property
+    def resolved_web_dir(self) -> Path:
+        """Return packaged web assets, falling back to the source checkout."""
+        packaged = Path(__file__).resolve().parent / "web"
+        if packaged.is_dir():
+            return packaged
+        return Path(__file__).resolve().parents[2] / "web"
 
     def ensure_runtime_directories(self) -> None:
         self.artifact_dir.mkdir(parents=True, exist_ok=True)

@@ -1,7 +1,7 @@
 # Justin Silas
 
 **Forward-Deployed AI & Enterprise Data Leader**  
-Agentic AI Â· RAG Â· Evaluation Â· Responsible AI Â· Salesforce Integration Â· Federal Modernization
+Agentic AI | RAG | Evaluation | Responsible AI | Salesforce Integration | Federal Modernization
 
 I design auditable AI and data platforms that connect enterprise knowledge, operational workflows, governance controls, and measurable outcomes. My public work uses synthetic data so reviewers can inspect the architecture, code, evaluation, and security decisions without exposing employer, customer, government, or student information.
 
@@ -18,9 +18,9 @@ A released, reproducible reference implementation of a forward-deployed enterpri
 - deterministic golden-set and adversarial release gates;
 - FastAPI, Docker, GitHub Actions, CodeQL, dependency review, and signed release provenance.
 
-**Public validation:** Python 3.11-3.13 CI Â· 21 tests Â· 87.03% coverage Â· 10/10 golden cases Â· 8/8 red-team cases
+**Release-candidate validation:** 28 tests | 88.32% coverage | 10/10 golden cases | 8/8 red-team cases | clean wheel and sdist installs | container health smoke test
 
-[Review the code](https://github.com/silasj1022/forward-deployed-ai-lab) Â· [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/main/docs/recruiter-guide.md) Â· [Open release v0.4.0](https://github.com/silasj1022/forward-deployed-ai-lab/releases/tag/v0.4.0)
+[Review the code](https://github.com/silasj1022/forward-deployed-ai-lab) | [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/main/docs/recruiter-guide.md) | Release candidate under review
 
 > Results above validate a small synthetic workflow and its controls. They do not claim production scale, real-user adoption, Salesforce platform tenure, or external model quality.
 
@@ -41,7 +41,7 @@ A released, reproducible reference implementation of a forward-deployed enterpri
 
 ## Connect
 
-[LinkedIn](https://www.linkedin.com/in/justinsilas) Â· [Email](mailto:silasj1022@gmail.com)
+[LinkedIn](https://www.linkedin.com/in/justinsilas) | [Email](mailto:silasj1022@gmail.com)
 
 Active work is labeled separately from completed, tested, and released capabilities.
 

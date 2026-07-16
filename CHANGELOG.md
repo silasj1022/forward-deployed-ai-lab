@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.0-rc.1 - 2026-07-16
+
+- Package runtime data and browser assets in both wheel and source distributions.
+- Add clean-install smoke tests for wheel, source distribution, API, browser assets, evaluation, and red-team gates.
+- Bind approvals to exact action hashes and make successful executions replay-safe.
+- Add bounded Salesforce retries and tests for success, authentication failure, timeout, rate limiting, and retry exhaustion.
+- Align Enterprise Agent Foundry branding and remove profile encoding artifacts.
+- Produce release SHA256 checksums, a CycloneDX SBOM, provenance attestations, and GitHub Release assets.
+
+This is a release candidate. Agentforce, durable LangGraph persistence, OpenTelemetry export, live cloud deployment, and production-scale evidence remain planned or optional.
+
 ## 0.4.0 - 2026-07-16
 
 - Rebranded the flagship project as **Enterprise Agent Foundry** while retaining the current repository slug during transition.
