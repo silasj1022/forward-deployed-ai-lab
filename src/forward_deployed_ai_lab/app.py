@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -13,22 +12,10 @@ from . import __version__
 from .agents.orchestrator import ForwardDeployedOrchestrator, WorkflowDependencies
 from .api.routes import router
 from .config import Settings, get_settings
-from .models.base import ModelProvider
+from .container import ApplicationContainer
 from .models.providers import build_model_provider
 from .observability import AuditLogger
 from .tools import ApprovalStore, KnowledgeBase, PolicyEngine, SalesforceClient
-
-
-@dataclass
-class ApplicationContainer:
-    settings: Settings
-    knowledge_base: KnowledgeBase
-    policy_engine: PolicyEngine
-    approvals: ApprovalStore
-    salesforce: SalesforceClient
-    model_provider: ModelProvider
-    audit_logger: AuditLogger
-    orchestrator: ForwardDeployedOrchestrator
 
 
 def build_container(settings: Settings | None = None) -> ApplicationContainer:
