@@ -1,0 +1,7 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "forward_deployed_ai_lab": "./src/forward_deployed_ai_lab/agents/langgraph_app.py:graph"
+  },
+  "env": ".env"
+}

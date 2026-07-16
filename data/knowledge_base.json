@@ -1,0 +1,143 @@
+[
+  {
+    "document_id": "KB-001",
+    "title": "Customer identity verification",
+    "content": "Before disclosing account-specific or case-specific information, verify the requester using two approved identity attributes. Do not expose Social Security numbers, credentials, access tokens, or full payment data. Route failed verification to an authorized human agent.",
+    "source": "Synthetic Customer Operations Handbook / Identity",
+    "tags": [
+      "identity",
+      "privacy",
+      "account",
+      "verification"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-002",
+    "title": "Priority 1 incident response target",
+    "content": "A Priority 1 incident requires acknowledgement within 15 minutes, an incident commander within 30 minutes, and executive status updates every 60 minutes until service is restored. Customer-facing updates must distinguish confirmed facts from hypotheses.",
+    "source": "Synthetic Service Reliability Standard / P1",
+    "tags": [
+      "priority",
+      "incident",
+      "sla",
+      "response",
+      "outage"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-003",
+    "title": "Refund and credit approval policy",
+    "content": "Refunds and service credits are consequential financial actions. The AI system may draft a recommendation, but a named manager must review the evidence and approve the transaction before execution. Refund requests above 500 dollars require finance review.",
+    "source": "Synthetic Revenue Operations Policy / Credits",
+    "tags": [
+      "refund",
+      "credit",
+      "finance",
+      "approval"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-004",
+    "title": "Case closure checklist",
+    "content": "A case may be closed only after the resolution is documented, customer impact is summarized, required follow-up tasks are assigned, and the customer is notified. Closing a case changes the system of record and requires human approval when proposed by an AI workflow.",
+    "source": "Synthetic Customer Operations Handbook / Case Lifecycle",
+    "tags": [
+      "case",
+      "close",
+      "closure",
+      "resolution",
+      "approval"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-005",
+    "title": "Data minimization and retention",
+    "content": "Collect and retain only the minimum data needed for the approved purpose. Bulk deletion, legal hold changes, and retention overrides are outside autonomous AI authority. Such requests must follow the privacy and records-management process.",
+    "source": "Synthetic Data Governance Standard / Retention",
+    "tags": [
+      "data",
+      "retention",
+      "privacy",
+      "deletion",
+      "governance"
+    ],
+    "allowed_roles": [
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-006",
+    "title": "Knowledge-grounded response standard",
+    "content": "Operational answers must cite approved knowledge sources, identify uncertainty, and avoid claims not supported by retrieved evidence. Conflicting or missing sources must be escalated rather than resolved through model speculation.",
+    "source": "Synthetic Responsible AI Standard / Grounding",
+    "tags": [
+      "rag",
+      "grounding",
+      "citations",
+      "hallucination",
+      "evaluation"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-007",
+    "title": "Escalation routing",
+    "content": "Escalate urgent service degradation to the incident response team and assign a named human owner. An AI assistant may recommend or prepare escalation details, but it must not page external parties or change incident severity without approval.",
+    "source": "Synthetic Incident Operations Guide / Escalation",
+    "tags": [
+      "escalation",
+      "incident",
+      "owner",
+      "approval"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  },
+  {
+    "document_id": "KB-008",
+    "title": "Salesforce case update controls",
+    "content": "Salesforce Case updates are performed through authenticated REST API calls using least-privilege credentials. Read operations and proposed changes are separated from writes. Every AI-proposed write must include a trace ID, rationale, changed fields, and an approval record.",
+    "source": "Synthetic Enterprise Integration Standard / Salesforce",
+    "tags": [
+      "salesforce",
+      "rest",
+      "case",
+      "write",
+      "audit",
+      "approval"
+    ],
+    "allowed_roles": [
+      "agent",
+      "manager",
+      "admin"
+    ]
+  }
+]

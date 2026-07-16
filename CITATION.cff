@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use or discuss this reference implementation, please cite it as below."
+title: "Forward-Deployed AI Delivery Lab"
+type: software
+authors:
+  - family-names: Silas
+    given-names: Justin
+version: 0.4.0
+date-released: 2026-07-15
+url: "https://github.com/silasj1022/forward-deployed-ai-lab"
+repository-code: "https://github.com/silasj1022/forward-deployed-ai-lab"
+license: MIT
+keywords:
+  - agentic-ai
+  - retrieval-augmented-generation
+  - salesforce
+  - human-in-the-loop
+  - llm-evaluation
+  - responsible-ai

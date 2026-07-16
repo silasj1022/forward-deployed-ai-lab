@@ -1,0 +1,61 @@
+# Optional AI Architect ecosystem requested by the target roles.
+# Install selectively; the full set is intentionally not part of the lean runtime.
+# Prefer pyproject optional groups for repeatable work.
+
+# Priority agent and platform lanes
+langgraph>=1.2,<2.0
+openai-agents>=0.18,<1.0
+agent-framework>=1.11,<2.0
+google-adk>=2.4,<3.0
+agentforce-sdk>=0.2,<1.0
+simple-salesforce>=1.12
+
+# Bounded comparison / migration lanes
+semantic-kernel>=1.30
+crewai>=0.150
+autogen-agentchat>=0.7
+autogen-ext[openai]>=0.7
+
+# LLM and ML evaluation / governance
+ragas>=0.4,<1.0
+deepeval>=3.0
+mlflow>=3.14,<4.0
+fairlearn>=0.12
+shap>=0.48
+evidently>=0.7
+garak>=0.12
+
+# Deep learning and model ecosystem
+scikit-learn>=1.5
+torch>=2.5
+tensorflow>=2.18
+transformers>=4.50
+datasets>=3.0
+accelerate>=1.0
+
+# Big data and distributed processing
+pyspark>=3.5
+databricks-sdk>=0.55
+delta-spark>=3.3
+pandas>=2.2
+
+# Vector stores and embeddings
+chromadb>=1.0
+qdrant-client>=1.14
+faiss-cpu>=1.9
+sentence-transformers>=4.0
+
+# Cloud AI platforms
+azure-ai-ml>=1.24
+azure-ai-inference>=1.0.0b9
+azure-search-documents>=11.6
+azure-identity>=1.20
+boto3>=1.37
+sagemaker>=2.240
+google-cloud-aiplatform>=1.85
+
+# Observability
+opentelemetry-api>=1.31
+opentelemetry-sdk>=1.31
+opentelemetry-exporter-otlp>=1.31
+prometheus-client>=0.21

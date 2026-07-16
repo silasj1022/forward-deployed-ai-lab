@@ -1,0 +1,42 @@
+name: Research Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+jobs:
+  build-and-attest:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Build distribution
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install build
+          python -m build
+      - name: Attest distribution provenance
+        uses: actions/attest@v4
+        with:
+          subject-path: "dist/*"
+      - name: Upload release bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: forward-deployed-ai-lab-distributions
+          if-no-files-found: error
+          path: dist/*

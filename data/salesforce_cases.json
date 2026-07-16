@@ -1,0 +1,32 @@
+[
+  {
+    "case_id": "500000000000001",
+    "case_number": "C-1001",
+    "subject": "Intermittent API timeout",
+    "status": "New",
+    "priority": "High",
+    "owner": "Synthetic Support Queue",
+    "account_name": "Northstar Manufacturing",
+    "description": "Customer reports intermittent timeout responses from a synthetic integration endpoint."
+  },
+  {
+    "case_id": "500000000000002",
+    "case_number": "C-1002",
+    "subject": "Invoice service credit request",
+    "status": "In Progress",
+    "priority": "Medium",
+    "owner": "Jordan Example",
+    "account_name": "Contoso Public Sector",
+    "description": "Customer requests a service credit following a synthetic service interruption."
+  },
+  {
+    "case_id": "500000000000003",
+    "case_number": "C-1003",
+    "subject": "P1 service outage",
+    "status": "Escalated",
+    "priority": "Critical",
+    "owner": "Synthetic Incident Command",
+    "account_name": "Blue River Health",
+    "description": "Synthetic production outage affecting multiple test users."
+  }
+]
