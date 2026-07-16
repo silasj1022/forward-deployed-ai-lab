@@ -15,7 +15,7 @@ from ..models.domain import AssistRequest, AssistResponse, ProposedAction
 from .schemas import ApprovalDecisionRequest, HealthResponse
 
 if TYPE_CHECKING:
-    from ..app import ApplicationContainer
+    from ..container import ApplicationContainer
 
 router = APIRouter(prefix="/api/v1")
 
@@ -68,15 +68,21 @@ def decide_approval(
     except KeyError as exc:
         raise HTTPException(status_code=404, detail="Approval not found") from exc
     except ValueError as exc:
-        raise HTTPException(status_code=409, detail=str(exc)) from exc
+        raise HTTPException(
+            status_code=409,
+            detail="Approval decision conflicts with the current approval state.",
+        ) from exc
 
     execution: dict[str, Any] | None = None
     if payload.approved and payload.execute_synthetic_action:
         action = ProposedAction.model_validate(record["action"])
         try:
             execution = container.salesforce.execute_case_update(action, approved=True)
-        except (KeyError, PermissionError) as exc:
-            execution = {"success": False, "error": str(exc)}
+        except (KeyError, PermissionError):
+            execution = {
+                "success": False,
+                "error": "The approved synthetic action could not be executed.",
+            }
     container.audit_logger.append(
         "approval.decided",
         {"approval": record, "execution": execution},
