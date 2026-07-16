@@ -1,40 +1,47 @@
 # Justin Silas
 
 **Forward-Deployed AI & Enterprise Data Leader**  
-Agentic AI · RAG · Evaluation · Responsible AI · Salesforce Integration · Federal Modernization
+Agentic AI Â· RAG Â· Evaluation Â· Responsible AI Â· Salesforce Integration Â· Federal Modernization
 
-I design and deliver auditable AI and data platforms that connect enterprise knowledge, operational workflows, governance controls, and measurable outcomes. My public work uses synthetic data so the architecture, code, evaluation, and security decisions can be reviewed without exposing employer or customer information.
+I design auditable AI and data platforms that connect enterprise knowledge, operational workflows, governance controls, and measurable outcomes. My public work uses synthetic data so reviewers can inspect the architecture, code, evaluation, and security decisions without exposing employer, customer, government, or student information.
 
 ## Featured project
 
-### Forward-Deployed AI Delivery Lab
+### [Enterprise Agent Foundry](https://github.com/silasj1022/forward-deployed-ai-lab)
 
-A public enterprise AI reference implementation demonstrating:
+A released, reproducible reference implementation of a forward-deployed enterprise AI workflow:
 
-- approved-knowledge retrieval and grounded responses;
-- policy guardrails and prompt-injection testing;
-- Salesforce-style Case integration;
-- named human approval before consequential writes;
-- deterministic and adversarial evaluation gates;
-- audit trails, traceability, containers, CI/CD, and deployment patterns.
+- framework-neutral agent orchestration and approved-knowledge BM25 retrieval;
+- grounded responses, policy controls, and prompt-injection defenses;
+- Salesforce REST/SOQL integration with synthetic Account and Case context;
+- named human approval before consequential system-of-record changes;
+- deterministic golden-set and adversarial release gates;
+- FastAPI, Docker, GitHub Actions, CodeQL, dependency review, and signed release provenance.
 
-Repository: `silasj1022/forward-deployed-ai-lab`
+**Public validation:** Python 3.11-3.13 CI Â· 21 tests Â· 87.03% coverage Â· 10/10 golden cases Â· 8/8 red-team cases
 
-## Current focus
+[Review the code](https://github.com/silasj1022/forward-deployed-ai-lab) Â· [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/main/docs/recruiter-guide.md) Â· [Open release v0.4.0](https://github.com/silasj1022/forward-deployed-ai-lab/releases/tag/v0.4.0)
 
-- Salesforce Agentforce and REST integration using a synthetic Developer Edition environment
-- Durable human-in-the-loop workflows with LangGraph
-- Comparable adapters for OpenAI Agents SDK and Microsoft Agent Framework
-- Claim-level citation evaluation, tool/trajectory metrics, MLflow, and OpenTelemetry
-- NIST AI RMF / Generative AI Profile and OWASP-informed governance evidence
+> Results above validate a small synthetic workflow and its controls. They do not claim production scale, real-user adoption, Salesforce platform tenure, or external model quality.
 
-## Background
+## What I bring
 
 - 20+ years across federal, healthcare, education, and private-sector data environments
-- MBA, MS in Data Analytics, M.Ed., and doctoral study in AI/ML leadership and cybersecurity
-- Enterprise BI platform ownership, Python/SQL engineering, predictive analytics, and executive advisory
+- Enterprise platform ownership, Python/SQL engineering, hybrid-cloud integration, and CI/CD
+- Customer-facing architecture, executive advisory, technical mentoring, and roadmap leadership
+- AI evaluation, red teaming, human-in-the-loop controls, auditability, and responsible-AI governance
+- MBA, M.S. in Data Analytics, M.Ed., and doctoral study in AI/ML leadership and cybersecurity
 
-LinkedIn: `/in/justinsilas`  
-Email: `silasj1022@gmail.com`
+## Current engineering focus
 
-> Active work is labeled separately from completed, tested, and released capabilities.
+- Salesforce Developer Edition and Agentforce validation using synthetic data
+- Durable approval workflows and persistence with LangGraph
+- Tool/trajectory evaluation, MLflow evidence, and OpenTelemetry traces
+- NIST AI RMF / Generative AI Profile and OWASP-informed control evidence
+
+## Connect
+
+[LinkedIn](https://www.linkedin.com/in/justinsilas) Â· [Email](mailto:silasj1022@gmail.com)
+
+Active work is labeled separately from completed, tested, and released capabilities.
+
