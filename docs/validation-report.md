@@ -1,96 +1,78 @@
 # Validation Report
 
-**Validation date:** 2026-07-15  
-**Project version:** 0.4.0 research baseline  
+**Validation date:** 2026-07-16
+
+**Project version:** 1.0.0rc1
+
+**Candidate status:** local validation complete and the public release-candidate workflow suite passed on PR #5; subsequent commits must re-pass the same gates
+
 **Default runtime:** deterministic grounded provider with synthetic enterprise data
 
-## Automated checks
+## Local automated checks
 
 | Check | Result |
 |---|---|
-| Repository integrity / evidence consistency | Passed: 24 required paths, dataset hashes, version metadata, and expected reports verified |
-| Ruff lint | Passed for the complete project tree with local environments excluded |
-| mypy strict type check | Passed across 41 source files |
-| pytest | 21 passed |
-| Measured coverage | 87.03% |
+| Repository integrity / evidence consistency | Passed: 25 required paths, package and citation branding, encoding scan, dataset hashes, version metadata, and expected reports verified |
+| Ruff lint | Passed |
+| mypy strict type check | Passed across 43 source files |
+| pytest | 30 passed; one upstream TestClient deprecation warning |
+| Measured branch coverage | 88.43%; required minimum is 80% |
 | Golden-set release gate | 10/10 cases passed |
 | Adversarial/red-team gate | 8/8 cases passed |
-| Python source distribution | Built successfully |
-| Python wheel | Built successfully |
-| Workflow and configuration YAML parse | Passed |
+| Python wheel | Built; clean-installed outside the checkout; data, web, API, evaluation, and red-team smoke test passed |
+| Python source distribution | Built; clean-installed outside the checkout; data, web, API, evaluation, and red-team smoke test passed |
+| CycloneDX SBOM | Generated and parsed as CycloneDX 1.6 with 24 resolved components |
+| Runtime dependency audit | `pip-audit`: no known vulnerabilities found |
+| Docker image | Built as `enterprise-agent-foundry:rc1`; live health returned `ok`; synthetic Salesforce mode and browser root returned successfully |
 
-## Golden-set scope
+## Salesforce and approval resilience added for this candidate
 
-The golden set validates deterministic behavior across:
+- live REST query and update success paths;
+- authentication failure without unsafe retry;
+- timeout retry and recovery;
+- HTTP 429 retry handling;
+- bounded retry exhaustion for transient 5xx responses;
+- exact-action SHA256 binding at approval time;
+- deterministic execution idempotency key;
+- successful-result replay without a second write;
+- conflicting reviewer decisions and action substitution rejected.
 
-- safe read-only requests;
-- approved-knowledge retrieval;
-- policy decisions;
-- requested-action routing;
-- human-approval routing;
-- groundedness and retrieved-source checks;
-- prompt-injection, credential-exfiltration, and destructive-action boundaries.
+These controls are process-local reference behavior. Durable identity-backed approvals, cross-process transactional claims, downstream idempotency, and live Salesforce org evidence remain production extensions.
 
-The benchmark is synthetic and intentionally small. It demonstrates repeatable workflow validation, not production model quality, user adoption, throughput, enterprise scale, or Salesforce platform tenure.
+## Synthetic evaluation scope
 
-## Current generated metrics
+The golden set validates safe read-only requests, approved-knowledge retrieval, policy decisions, requested-action routing, human-approval routing, groundedness and retrieved-source checks, and prompt-injection, credential-exfiltration, and destructive-action boundaries.
 
-- Case count: 10
-- Quality-gate pass rate: 1.0
-- Policy decision accuracy: 1.0
-- Action-routing accuracy: 1.0
-- Approval-routing accuracy: 1.0
-- Retrieval hit rate: 1.0
-- Mean groundedness proxy: 0.9913
-- Mean retrieved-source coverage proxy: 0.7667
-- Red-team case count: 8
-- Red-team pass rate: 1.0
+Current generated metrics:
 
-The source-coverage metric is not claim-level citation recall. The evaluation roadmap explicitly separates future citation precision and citation recall.
+- case count: 10;
+- quality-gate pass rate: 1.0;
+- policy-decision accuracy: 1.0;
+- action-routing accuracy: 1.0;
+- approval-routing accuracy: 1.0;
+- retrieval hit rate: 1.0;
+- mean groundedness proxy: 0.9913;
+- mean retrieved-source coverage proxy: 0.7667;
+- red-team case count: 8;
+- red-team pass rate: 1.0.
+
+The benchmark is synthetic and intentionally small. It demonstrates repeatable workflow validation, not production model quality, user adoption, throughput, enterprise scale, Salesforce platform tenure, or claim-level citation recall.
 
 ## Coverage exclusions
 
-Optional or deployment-specific adapters are excluded from the core coverage gate when their dependencies are not installed:
+Optional or deployment-specific adapters are excluded from the core coverage gate when their dependencies are not installed: LangGraph deployment adapter, MLflow experiment adapter, PySpark ingestion example, Chroma and Qdrant vector adapters, and the command-line entry point. These components remain separately labeled and require dedicated validation in their target environments.
 
-- LangGraph deployment adapter;
-- MLflow experiment adapter;
-- PySpark ingestion example;
-- Chroma and Qdrant vector adapters;
-- command-line entry point.
+## Public release gate
 
-These components are labeled separately in the technology matrix and require dedicated integration tests in their deployment environments.
+The release-candidate workflow suite on PR #5 passed on 2026-07-16:
 
-## Reproduce
+- Python 3.11, 3.12, and 3.13 CI;
+- wheel and source-distribution clean-install jobs;
+- container build and live health smoke test;
+- CodeQL;
+- dependency review and dependency audit;
+- repository, evaluation, and red-team evidence checks.
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -e ".[dev]"
-make validate
-make build
-```
+Do not merge or tag v1.0 if any later release-candidate commit fails one of these gates. Keep the pull request in draft until the remaining public-presentation corrections are reviewed.
 
-Equivalent commands:
-
-```bash
-python scripts/verify_repository.py
-ruff check .
-mypy src/forward_deployed_ai_lab
-pytest --cov=forward_deployed_ai_lab --cov-report=term-missing
-python scripts/evaluate.py
-python scripts/red_team.py
-python -m build
-```
-
-## Public-verification status
-
-Local validation has passed. A tagged release should not be described as publicly verified until:
-
-1. the complete tree is present on GitHub;
-2. GitHub Actions completes successfully;
-3. the evaluation, red-team, and coverage artifacts are attached to the workflow;
-4. the container build is green;
-5. the release distributions receive GitHub artifact provenance.
-
-The current execution environment did not provide a Docker daemon, so the container itself was not locally built during this validation run.
+The tag-triggered workflow is configured to rebuild and smoke-test both distributions, generate a resolved CycloneDX SBOM and SHA256 checksums, attest provenance, and attach the bundle to a GitHub Release. That tag execution is intentionally pending.

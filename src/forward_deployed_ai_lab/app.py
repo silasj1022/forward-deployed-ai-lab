@@ -20,7 +20,7 @@ from .tools import ApprovalStore, KnowledgeBase, PolicyEngine, SalesforceClient
 
 def build_container(settings: Settings | None = None) -> ApplicationContainer:
     settings = settings or get_settings()
-    data_dir = Path(settings.data_dir)
+    data_dir = settings.resolved_data_dir
     knowledge_base = KnowledgeBase.from_json(data_dir / "knowledge_base.json")
     policy_engine = PolicyEngine()
     approvals = ApprovalStore()
@@ -62,7 +62,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.container = container
     app.include_router(router)
 
-    web_dir = Path(__file__).resolve().parents[2] / "web"
+    web_dir = container.settings.resolved_web_dir
     if web_dir.exists():
         app.mount("/static", StaticFiles(directory=web_dir), name="static")
 

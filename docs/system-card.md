@@ -2,7 +2,7 @@
 
 ## System name
 
-Forward-Deployed AI Delivery Lab
+Enterprise Agent Foundry
 
 ## Purpose
 
@@ -20,7 +20,7 @@ A public, synthetic reference implementation for demonstrating enterprise AI del
 - read-only answers grounded in an approved synthetic knowledge base;
 - synthetic Salesforce Case context retrieval;
 - generation of proposed Case actions;
-- attributable human approval before consequential writes;
+- named human approval before consequential writes;
 - deterministic evaluation and adversarial testing;
 - local demonstration and architecture discussion.
 
@@ -51,6 +51,8 @@ All checked-in records are synthetic. No live credentials are committed. Live in
 
 Approval records must identify the reviewer and decision. Consequential actions are proposed before execution. The live connector independently checks write-enablement configuration so the orchestration layer is not the only control.
 
+The reviewer name is supplied by the caller in this public reference implementation; it is not derived from authenticated enterprise identity. Production use requires identity-backed approval records.
+
 ## Evaluation
 
 The release baseline includes deterministic workflow tests, a versioned golden set, and an adversarial dataset. External LLM-judge and production-monitoring integrations are optional and must not replace deterministic safety gates.
@@ -62,7 +64,7 @@ The release baseline includes deterministic workflow tests, a versioned golden s
 - no verified public Salesforce org deployment yet;
 - optional cloud, vector, MLflow, Spark, and framework adapters require separate validation;
 - current citation coverage is a retrieved-document proxy, not claim-level citation recall;
-- public CI evidence must be established before the repository is represented as release-verified.
+- release-candidate packaging and security checks must pass publicly before v1.0 is tagged.
 
 ## Incident handling
 

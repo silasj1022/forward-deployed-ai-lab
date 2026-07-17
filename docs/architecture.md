@@ -63,8 +63,10 @@ The framework-neutral runtime creates a pending approval artifact containing:
 - rationale
 - timestamp
 - reviewer identity and decision
+- a SHA256 binding to the exact proposed action
+- a deterministic idempotency key and execution status
 
-The optional LangGraph adapter demonstrates `interrupt()` and a checkpointer. Production use should replace in-memory state with PostgreSQL or another durable store and connect approval identity to enterprise SSO.
+Successful execution results are replayed without issuing a second write. Failed transient executions may be retried with the same action-bound idempotency key. The optional LangGraph adapter demonstrates `interrupt()` and an in-memory checkpointer. Production use must replace in-memory state with durable transactional storage, connect approval identity to enterprise SSO, and propagate an idempotency contract to downstream systems.
 
 ## Persistence and memory
 

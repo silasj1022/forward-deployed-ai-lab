@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 import re
+import time
 from copy import deepcopy
 from pathlib import Path
 from typing import Any, cast
@@ -35,13 +36,22 @@ def _validated_salesforce_id(value: str) -> str:
 
 
 class SalesforceClient:
-    def __init__(self, settings: Settings, synthetic_cases_path: Path) -> None:
+    RETRYABLE_STATUS_CODES = frozenset({429, 502, 503, 504})
+
+    def __init__(
+        self,
+        settings: Settings,
+        synthetic_cases_path: Path,
+        *,
+        http_client: httpx.Client | None = None,
+    ) -> None:
         self.settings = settings
         self.synthetic_cases_path = synthetic_cases_path
         self._cases = {
             item["case_id"]: item
             for item in json.loads(synthetic_cases_path.read_text(encoding="utf-8"))
         }
+        self._http_client = http_client or httpx.Client()
 
     @property
     def live(self) -> bool:
@@ -65,6 +75,45 @@ class SalesforceClient:
             "Content-Type": "application/json",
         }
 
+    def _request(self, method: str, endpoint: str, **kwargs: Any) -> httpx.Response:
+        """Issue an HTTP request with bounded retries for transient failures."""
+        attempts = self.settings.salesforce_max_retries + 1
+        last_timeout: httpx.TimeoutException | None = None
+        for attempt in range(attempts):
+            try:
+                response = self._http_client.request(
+                    method,
+                    endpoint,
+                    headers=self._headers(),
+                    timeout=self.settings.salesforce_timeout_seconds,
+                    **kwargs,
+                )
+            except httpx.TimeoutException as exc:
+                last_timeout = exc
+                if attempt + 1 >= attempts:
+                    raise
+                self._sleep_before_retry(attempt, None)
+                continue
+            if response.status_code not in self.RETRYABLE_STATUS_CODES:
+                response.raise_for_status()
+                return response
+            if attempt + 1 >= attempts:
+                response.raise_for_status()
+            self._sleep_before_retry(attempt, response)
+        if last_timeout is not None:  # pragma: no cover - defensive loop guard
+            raise last_timeout
+        raise RuntimeError("Salesforce request retry loop ended unexpectedly")  # pragma: no cover
+
+    def _sleep_before_retry(self, attempt: int, response: httpx.Response | None) -> None:
+        retry_after = response.headers.get("Retry-After") if response is not None else None
+        try:
+            delay = float(retry_after) if retry_after is not None else -1.0
+        except ValueError:
+            delay = -1.0
+        if delay < 0:
+            delay = self.settings.salesforce_retry_backoff_seconds * (2**attempt)
+        time.sleep(min(delay, 10.0))
+
     def query(self, soql: str) -> dict[str, Any]:
         if not self.live:
             normalized = soql.lower()
@@ -80,8 +129,7 @@ class SalesforceClient:
         endpoint = (
             f"{base}/services/data/{self.settings.salesforce_api_version}/query?q={quote(soql)}"
         )
-        response = httpx.get(endpoint, headers=self._headers(), timeout=20.0)
-        response.raise_for_status()
+        response = self._request("GET", endpoint)
         return cast(dict[str, Any], response.json())
 
     def get_case(self, case_id: str) -> dict[str, Any] | None:
@@ -135,6 +183,5 @@ class SalesforceClient:
         endpoint = (
             f"{base}/services/data/{self.settings.salesforce_api_version}/sobjects/Case/{case_id}"
         )
-        response = httpx.patch(endpoint, headers=self._headers(), json=fields, timeout=20.0)
-        response.raise_for_status()
+        self._request("PATCH", endpoint, json=fields)
         return {"mode": "live", "success": True, "case_id": case_id, "updated_fields": fields}

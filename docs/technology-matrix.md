@@ -33,12 +33,12 @@ Status meanings:
 | Traditional ML | scikit-learn / Fairlearn / SHAP / Evidently | Architecture extension | `evaluation` and `ml` extras |
 | Deep learning / NLP | TensorFlow / PyTorch / Hugging Face | Architecture extension | `ml` extra |
 | Distributed data | PySpark / Databricks / Delta | Implemented optional example | `pipelines/spark_ingestion.py` |
-| Containers | Docker / Compose | Implemented config | `Dockerfile`, `docker-compose.yml`; public CI proof pending |
+| Containers | Docker / Compose | Verified build | `Dockerfile`, `docker-compose.yml`, public GitHub Actions container job |
 | Orchestration | Kubernetes | Deployment manifest | `infra/kubernetes/`; no live cluster claim |
 | Reproducibility | Dev Container / Codespaces | Implemented config | `.devcontainer/devcontainer.json` |
-| CI/CD | GitHub Actions / GitLab CI | Implemented config | `.github/workflows/`, `.gitlab-ci.yml`; public run pending |
+| CI/CD | GitHub Actions / GitLab CI | GitHub verified; GitLab config only | `.github/workflows/`, `.gitlab-ci.yml`; public GitHub Actions runs |
 | Supply chain | Dependency review / pip-audit | Implemented config | security workflows |
-| Supply chain | Release provenance | Implemented config | `.github/workflows/release.yml` |
+| Supply chain | Release provenance / SBOM / checksums | Release-candidate config | `.github/workflows/release.yml`; tag execution intentionally pending |
 | Cloud AI | Azure AI / Azure ML / Foundry | Architecture extension | `infra/cloud/`, `cloud` extra |
 | Cloud AI | AWS SageMaker / Bedrock | Architecture extension | `infra/cloud/`, `cloud` extra |
 | Cloud AI | Google Vertex AI | Architecture extension | `infra/cloud/`, `cloud` extra |
@@ -46,6 +46,6 @@ Status meanings:
 | Observability | Hash-chained audit | Verified | `observability/audit.py` and tests |
 | Observability | OpenTelemetry / Prometheus | Planned extension | `observability` extra, evaluation roadmap |
 | Governance | System card / threat model / ADRs | Implemented documentation | `docs/system-card.md`, `docs/threat-model.md`, `docs/adr/` |
-| Portfolio evidence | Claim-to-test mapping | Verified locally | `docs/evidence-index.md`, `scripts/verify_repository.py` |
+| Portfolio evidence | Claim-to-test mapping | Verified locally and in CI | `docs/evidence-index.md`, `scripts/verify_repository.py`, CI logs |
 
 A recruiter or hiring manager should use this matrix and the evidence index rather than infer experience from dependency declarations.

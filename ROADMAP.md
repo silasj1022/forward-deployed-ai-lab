@@ -12,13 +12,13 @@ This roadmap is evidence-gated. A capability is not represented as complete unti
 - Build the container in CI.
 - Upload evaluation, red-team, and coverage artifacts.
 - Keep README metrics synchronized with generated reports.
-- Publish a research-backed `v0.4.0` release after CI is green.
+- Preserve the verified v0.4.0 research baseline and advance through a reviewed v1.0 release candidate.
 
 **Exit criterion:** `make install verify-repo lint typecheck test evaluate red-team` succeeds from a fresh clone and the public workflow artifacts are inspectable.
 
 ## P1 — Recruiter-ready flagship release
 
-- Rename the GitHub repository slug to `enterprise-agent-foundry` after the rebrand PR is merged.
+- Keep the existing repository URL stable while using Enterprise Agent Foundry consistently as the product and distribution name.
 - Add a 90-second demo recording and static social-preview image.
 - Add a one-command `make demo` path.
 - Validate Dev Container and GitHub Codespaces setup.

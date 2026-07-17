@@ -54,4 +54,4 @@ def build_langgraph(orchestrator: ForwardDeployedOrchestrator) -> Any:
     builder.add_edge(START, "execute")
     builder.add_edge("execute", "approval")
     builder.add_edge("finish", END)
-    return builder.compile(checkpointer=InMemorySaver(), name="Forward-Deployed AI Lab")
+    return builder.compile(checkpointer=InMemorySaver(), name="Enterprise Agent Foundry")

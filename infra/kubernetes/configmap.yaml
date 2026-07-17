@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: fdai-lab-config
+  name: enterprise-agent-foundry-config
 data:
   FDAI_ENVIRONMENT: "production"
   FDAI_MODEL_PROVIDER: "deterministic"

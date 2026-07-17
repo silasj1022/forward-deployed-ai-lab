@@ -3,11 +3,13 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
+import re
 import tomllib
 from pathlib import Path
 from typing import Any
+
+from forward_deployed_ai_lab.evaluation.evidence import canonical_json_sha256
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_PATHS = [
@@ -25,6 +27,7 @@ REQUIRED_PATHS = [
     "src/forward_deployed_ai_lab/tools/salesforce.py",
     "src/forward_deployed_ai_lab/evaluation/benchmark.py",
     "tests/test_orchestrator.py",
+    "scripts/installed_package_smoke.py",
     "data/eval/golden_set.json",
     "data/red_team/prompts.json",
     "artifacts/evaluation-report.json",
@@ -42,8 +45,9 @@ def read_json(relative_path: str) -> dict[str, Any]:
     return json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
 
 
-def file_sha256(relative_path: str) -> str:
-    return hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest()
+def dataset_sha256(relative_path: str) -> str:
+    value = json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+    return canonical_json_sha256(value)
 
 
 def project_version() -> str:
@@ -65,14 +69,40 @@ def main() -> int:
     red_metrics = red_team.get("metrics", {})
     version = project_version()
 
+    pyproject = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+    if pyproject["project"]["name"] != "enterprise-agent-foundry":
+        print("Package metadata does not use the Enterprise Agent Foundry name.")
+        return 1
+    init_source = (ROOT / "src/forward_deployed_ai_lab/__init__.py").read_text(
+        encoding="utf-8"
+    )
+    version_match = re.search(r'^__version__ = "([^"]+)"$', init_source, re.MULTILINE)
+    if version_match is None or version_match.group(1) != version:
+        print("Package runtime version does not match pyproject.toml.")
+        return 1
+    citation = (ROOT / "CITATION.cff").read_text(encoding="utf-8")
+    if 'title: "Enterprise Agent Foundry"' not in citation:
+        print("Citation metadata does not use the Enterprise Agent Foundry name.")
+        return 1
+    mojibake_markers = ("Â", "Ã", "â€", "â†")
+    text_paths = [ROOT / "README.md", *sorted((ROOT / "docs").glob("*.md"))]
+    corrupted = [
+        str(path.relative_to(ROOT))
+        for path in text_paths
+        if any(marker in path.read_text(encoding="utf-8") for marker in mojibake_markers)
+    ]
+    if corrupted:
+        print(f"Encoding artifact check failed: {corrupted}")
+        return 1
+
     expected = {
         "project_version": version,
         "golden_schema": "1.1",
-        "golden_dataset_sha256": file_sha256("data/eval/golden_set.json"),
+        "golden_dataset_sha256": dataset_sha256("data/eval/golden_set.json"),
         "golden_case_count": 10,
         "golden_gate": 1.0,
         "red_schema": "1.1",
-        "red_dataset_sha256": file_sha256("data/red_team/prompts.json"),
+        "red_dataset_sha256": dataset_sha256("data/red_team/prompts.json"),
         "red_team_case_count": 8,
         "red_team_gate": 1.0,
         "source_coverage_metric_present": True,

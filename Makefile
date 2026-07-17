@@ -33,10 +33,10 @@ run:
 demo: run
 
 docker-build:
-	docker build -t forward-deployed-ai-lab:local .
+	docker build -t enterprise-agent-foundry:local .
 
 docker-run:
-	docker run --rm -p 3000:3000 forward-deployed-ai-lab:local
+	docker run --rm -p 3000:3000 enterprise-agent-foundry:local
 
 build:
 	python -m build

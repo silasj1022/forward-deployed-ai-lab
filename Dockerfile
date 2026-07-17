@@ -7,6 +7,8 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
 
 COPY pyproject.toml README.md ./
 COPY src ./src
+COPY data ./data
+COPY web ./web
 RUN python -m pip install --upgrade pip \
     && python -m pip wheel --wheel-dir /wheels .
 
@@ -23,8 +25,6 @@ COPY --from=builder /wheels /wheels
 RUN python -m pip install --no-cache-dir /wheels/* \
     && rm -rf /wheels
 
-COPY data ./data
-COPY web ./web
 COPY scripts/smoke_test.py ./scripts/smoke_test.py
 RUN mkdir -p logs artifacts \
     && chown -R appuser:appuser /app

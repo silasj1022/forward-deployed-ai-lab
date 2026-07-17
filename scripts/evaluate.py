@@ -11,7 +11,7 @@ def main() -> None:
     container = build_container()
     report = run_benchmark(
         container.orchestrator,
-        golden_set_path=Path(container.settings.data_dir) / "eval/golden_set.json",
+        golden_set_path=container.settings.resolved_data_dir / "eval/golden_set.json",
         output_path=Path(container.settings.artifact_dir) / "evaluation-report.json",
         enable_mlflow=container.settings.enable_mlflow,
     )

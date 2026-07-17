@@ -11,7 +11,7 @@ def main() -> None:
     container = build_container()
     report = run_red_team(
         container.orchestrator,
-        prompts_path=Path(container.settings.data_dir) / "red_team/prompts.json",
+        prompts_path=container.settings.resolved_data_dir / "red_team/prompts.json",
         output_path=Path(container.settings.artifact_dir) / "red-team-report.json",
     )
     print(report["metrics"])
