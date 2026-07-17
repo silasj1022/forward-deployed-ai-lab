@@ -20,7 +20,7 @@ A public, synthetic reference implementation for demonstrating enterprise AI del
 - read-only answers grounded in an approved synthetic knowledge base;
 - synthetic Salesforce Case context retrieval;
 - generation of proposed Case actions;
-- attributable human approval before consequential writes;
+- named human approval before consequential writes;
 - deterministic evaluation and adversarial testing;
 - local demonstration and architecture discussion.
 
@@ -50,6 +50,8 @@ All checked-in records are synthetic. No live credentials are committed. Live in
 ## Human oversight
 
 Approval records must identify the reviewer and decision. Consequential actions are proposed before execution. The live connector independently checks write-enablement configuration so the orchestration layer is not the only control.
+
+The reviewer name is supplied by the caller in this public reference implementation; it is not derived from authenticated enterprise identity. Production use requires identity-backed approval records.
 
 ## Evaluation
 

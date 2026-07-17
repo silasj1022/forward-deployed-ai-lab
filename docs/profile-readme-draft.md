@@ -9,18 +9,18 @@ I design auditable AI and data platforms that connect enterprise knowledge, oper
 
 ### [Enterprise Agent Foundry](https://github.com/silasj1022/forward-deployed-ai-lab)
 
-A released, reproducible reference implementation of a forward-deployed enterprise AI workflow:
+A publicly validated v1.0 release candidate for a reproducible forward-deployed enterprise AI workflow:
 
 - framework-neutral agent orchestration and approved-knowledge BM25 retrieval;
 - grounded responses, policy controls, and prompt-injection defenses;
 - Salesforce REST/SOQL integration with synthetic Account and Case context;
 - named human approval before consequential system-of-record changes;
 - deterministic golden-set and adversarial release gates;
-- FastAPI, Docker, GitHub Actions, CodeQL, dependency review, and signed release provenance.
+- FastAPI, Docker, GitHub Actions, CodeQL, and dependency review, with signed release provenance configured for the tag-triggered release.
 
 **Release-candidate validation:** 30 tests | 88.43% coverage | 10/10 golden cases | 8/8 red-team cases | clean wheel and sdist installs | container health smoke test
 
-[Review the code](https://github.com/silasj1022/forward-deployed-ai-lab) | [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/main/docs/recruiter-guide.md) | Release candidate under review
+[Review the release candidate](https://github.com/silasj1022/forward-deployed-ai-lab/pull/5) | [Read the recruiter guide](https://github.com/silasj1022/forward-deployed-ai-lab/blob/agent/v1.0-release-candidate/docs/recruiter-guide.md) | Final release artifacts pending
 
 > Results above validate a small synthetic workflow and its controls. They do not claim production scale, real-user adoption, Salesforce platform tenure, or external model quality.
 

@@ -4,7 +4,7 @@
 
 **Project version:** 1.0.0rc1
 
-**Candidate status:** local release-candidate validation complete; public pull-request checks pending
+**Candidate status:** local validation complete and the public release-candidate workflow suite passed on PR #5; subsequent commits must re-pass the same gates
 
 **Default runtime:** deterministic grounded provider with synthetic enterprise data
 
@@ -64,13 +64,15 @@ Optional or deployment-specific adapters are excluded from the core coverage gat
 
 ## Public release gate
 
-Do not merge or tag v1.0 until the release-candidate pull request shows green results for:
+The release-candidate workflow suite on PR #5 passed on 2026-07-16:
 
-1. Python 3.11, 3.12, and 3.13 CI;
-2. package clean-install jobs;
-3. container build and health smoke test;
-4. CodeQL;
-5. dependency review and dependency audit;
-6. repository, evaluation, and red-team evidence checks.
+- Python 3.11, 3.12, and 3.13 CI;
+- wheel and source-distribution clean-install jobs;
+- container build and live health smoke test;
+- CodeQL;
+- dependency review and dependency audit;
+- repository, evaluation, and red-team evidence checks.
+
+Do not merge or tag v1.0 if any later release-candidate commit fails one of these gates. Keep the pull request in draft until the remaining public-presentation corrections are reviewed.
 
 The tag-triggered workflow is configured to rebuild and smoke-test both distributions, generate a resolved CycloneDX SBOM and SHA256 checksums, attest provenance, and attach the bundle to a GitHub Release. That tag execution is intentionally pending.

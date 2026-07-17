@@ -3,13 +3,13 @@
 [![Python 3.11–3.13](https://img.shields.io/badge/python-3.11--3.13-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A public, runnable reference implementation for designing, evaluating, governing, and operating **enterprise agentic AI systems**. The flagship scenario combines approved-knowledge retrieval, agent orchestration, Salesforce-ready integration, attributable human approval, deterministic evaluation, adversarial testing, traceability, and tamper-evident audit logging.
+A public, runnable reference implementation for designing, evaluating, governing, and operating **enterprise agentic AI systems**. The flagship scenario combines approved-knowledge retrieval, agent orchestration, Salesforce-ready integration, named human approval, deterministic evaluation, adversarial testing, traceability, and tamper-evident audit logging.
 
 The repository is designed to demonstrate the work expected of a **Lead/Principal AI Forward-Deployed Engineer** and a **Federal AI Architect** without exposing employer, customer, student, government, or proprietary data.
 
 > **Truth-in-engineering:** The default runtime uses synthetic data and a deterministic grounded-response provider. Optional LLM, vector, MLOps, distributed-data, cloud, and agent-framework packages are labeled as implemented, optional, or planned. Synthetic benchmark results validate this repository’s workflow—not real-world model quality, production scale, or platform tenure.
 
-> **Repository transition:** The public repository slug remains `forward-deployed-ai-lab` until the GitHub repository is renamed. The product and portfolio identity is now **Enterprise Agent Foundry**.
+> **Stable repository URL:** The public repository slug remains `forward-deployed-ai-lab` so shared links stay valid. The product and portfolio identity is **Enterprise Agent Foundry**.
 
 ## What a reviewer can verify
 
@@ -64,7 +64,7 @@ flowchart LR
     W --> E
     B --> E
     E --> A[Hash-chained audit event]
-    E --> O[MLflow / OpenTelemetry adapters]
+    E --> O[Optional MLflow / planned OpenTelemetry adapters]
 ```
 
 The default orchestrator is framework-neutral and fully testable. Framework adapters must preserve the same domain contract, authority boundary, synthetic scenario, evaluation dataset, and audit schema. This makes framework comparisons meaningful instead of creating unrelated demo applications.

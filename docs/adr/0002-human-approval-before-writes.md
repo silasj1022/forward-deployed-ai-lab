@@ -14,6 +14,6 @@ Split every consequential action into proposal, approval, and execution stages. 
 ## Consequences
 
 - The public demo can show a complete workflow without autonomous writes.
-- Approval decisions are attributable and auditable.
+- Approval decisions record a named reviewer and are auditable within the reference workflow.
 - The reference implementation prevents same-process replay and action substitution.
 - Production deployments must replace the in-memory store with durable identity-backed approval records, transactional execution claims, and a downstream idempotency contract.
