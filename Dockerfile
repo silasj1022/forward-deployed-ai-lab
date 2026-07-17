@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.12-slim AS builder
+FROM python:3.13-slim AS builder
 
 WORKDIR /build
 ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
@@ -12,7 +12,7 @@ COPY web ./web
 RUN python -m pip install --upgrade pip \
     && python -m pip wheel --wheel-dir /wheels .
 
-FROM python:3.12-slim AS runtime
+FROM python:3.13-slim AS runtime
 
 RUN useradd --create-home --uid 10001 appuser
 WORKDIR /app
