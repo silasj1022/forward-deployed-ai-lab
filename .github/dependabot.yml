@@ -5,24 +5,21 @@ updates:
     schedule:
       interval: monthly
     open-pull-requests-limit: 5
-    labels:
-      - dependencies
-      - python
 
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: monthly
     open-pull-requests-limit: 5
-    labels:
-      - dependencies
-      - ci
 
   - package-ecosystem: docker
     directory: "/"
     schedule:
       interval: monthly
     open-pull-requests-limit: 5
-    labels:
-      - dependencies
-      - container
+    ignore:
+      # v1.0 is publicly verified only on Python 3.11-3.13.
+      # Remove this guard only after Python 3.14 joins the tested runtime matrix.
+      - dependency-name: python
+        versions:
+          - ">= 3.14"
